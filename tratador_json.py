@@ -65,6 +65,7 @@ def verify_time() -> int:
     return time.strftime("%Y%m%d ", time.localtime(time.time() + 86000))
 
 
+
 def tratar_odds(nome_arquivo: str, source='bet365') -> list:
     """Trata as cotações de cada envento que recebe"""
 
@@ -76,6 +77,7 @@ def tratar_odds(nome_arquivo: str, source='bet365') -> list:
 
 def tratar_odds_2(nome_arquivo: str) -> dict:
     data = json_to_dic(nome_arquivo)
+    lista_de_eventos = []
 
     class cotacao():
         def __init__(self, mkt: str, home:str, away:str, odds: dict):
@@ -97,10 +99,11 @@ def tratar_odds_2(nome_arquivo: str) -> dict:
     for evento in data['data']:
         _cot = cotacao(evento['sites'] , evento['teams'][0], evento['teams'][1], evento['sites'][0]['odds'])
         _evento = event(evento['sport_nice'], evento['commence_time'], evento['sites'], _cot)
+        lista_de_eventos.append(_evento)
 
-        print(_evento.cotacao.home_od)
+    return lista_de_eventos
 
-tratar_odds_2('teste.json')
+    
 
 
 
