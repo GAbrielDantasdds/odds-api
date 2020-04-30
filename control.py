@@ -1,7 +1,7 @@
-from banco_de_dados_ import inserir_dados
-from main import get_event_odds, events_future
-from tratador_json import take_events, verify_time
-import config.config
+from banco_de_dados_ import inserir_dados, criar_banco
+from main import get_event_summary, events_future
+from tratador_json import take_events, verify_time, summary
+import config
 
 
 plataformas_bet = ['1xbet', '188bet', 'bet365', 'betway', 'pinnaclesports', 'vbet']
@@ -14,13 +14,18 @@ def refresh() -> None:
     lista = take_events('data/futures_events_.json')  #gera a lista de eventos
 
 
-    for event in lista:
-        for plataforma in plataformas_bet:
-            print(event.id_event)
-            get_event_odds(event.id_event, plataforma)
 
-        break
-
-
+    for e in lista[20:]:
+        get_event_summary(e.id_event)
+        lista = summary('data/summary_event_.json')
+        if len(lista) > 0:
+            print(lista[0].nome_casa)
+            break
 
 refresh()
+
+
+
+# --------> Para criar os bancos de dados:
+# for plat in plataformas_bet:
+#     criar_banco(f'json_files/{plat}/banco_{plat}_future.bd')

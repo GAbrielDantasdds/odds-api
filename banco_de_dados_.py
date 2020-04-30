@@ -11,8 +11,7 @@ def criar_banco(nome_banco: str) -> None:
     """ Cria um novo banco de dados. """
 
     cursor = criar_(f'{nome_banco}.bd')[0]
-    cursor.execute('''CREATE TABLE IF NOT EXISTS data('Time 1', 'Time 2', Data, Hora, 'Time 1 ganhando', Empate, 'Time 2 ganhando',
-    'Time 1 ganha ou empate', 'Time 2 ganha ou empate')''')
+    cursor.execute('''CREATE TABLE IF NOT EXISTS data('ID', 'SPORT_ID', 'LEAGUE', 'TIME', 'HOME_NAME', 'AWAY_NAME')''')
 
 def inserir_dados(nome_banco: str) -> None:
     """ Insere dados no banco selecionado. """
@@ -33,5 +32,3 @@ def banco_eventos_futuros_atualizar(eventos: list) -> None:
     for e in eventos:
         cursor.execute('''INSERT INTO data(event_id, event_name, event_time) values(?,?,?)''', [e.name, f'{e.cotacao.home} x {e.cotacao.away}', e.time])
     conexao.commit()
-
-banco_eventos_futuros_atualizar(tratar_odds_2('teste.json'))

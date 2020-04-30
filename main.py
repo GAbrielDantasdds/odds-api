@@ -3,7 +3,9 @@ from config import api_key
 import json
 import os
 
-token = '46686-aMprSfbKrPfl2i'
+token_antigo = '46686-aMprSfbKrPfl2i'
+token = '45897-Mw1oq96CdzOmzh'
+
 headers = {'Content-Type': 'application/json',
 'X-API-TOKEN': '{0}'.format(token)}
 
@@ -40,19 +42,17 @@ def get_odds_(sport_: str, region_: str, mkt_: str) -> dict:
     print(response.headers['x-requests-remaining'])
     return odds_json
 
-get_odds_('upcoming', 'eu', 'h2h')
-
 
 # ----------------------------------------------------------
 
 
-def get_event_history(event_id: int, source='bet365') -> None:
-    """Histórico de eventos"""
+def get_event_summary(event_id: int) -> None:
+    """Sumário das cotações de eventos."""
 
-    url = f'https://api.betsapi.com/v1/event/history?&event_id={event_id}?source={source}'
+    url = f'https://api.betsapi.com/v2/event/odds/summary?&event_id={event_id}&page=2'
     re = r.get(url, headers=headers)
     if re.status_code == 200:
-        with open(f'json_files/{source}/ended_events_.json', 'w') as arquivo:
+        with open(f'data/summary_event_.json', 'w') as arquivo:
             arquivo.write(f'{re.content.decode("UTF-8")}')
 
 def get_event_odds(event_id: int, source='bet365') -> None:
@@ -67,7 +67,7 @@ def get_event_odds(event_id: int, source='bet365') -> None:
 def events_future(id: int, data: int, source='bet365') -> None:
     """Vê os eventos futuros por esporte"""
 
-    _url = f'https://api.betsapi.com/v2/events/upcoming?sport_id={id}&source={source}&day={data}'
+    _url = f'https://api.betsapi.com/v2/events/upcoming?sport_id={id}&source={source}&day={data}&page=2'
     re = r.get(_url, headers=headers)
     if re.status_code == 200:
         with open(f'data/futures_events_.json', 'w') as arquivo:

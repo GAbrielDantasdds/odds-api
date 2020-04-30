@@ -1,5 +1,6 @@
 import json
 import calendar, time
+from config import plataformas
 
 
 class league():
@@ -22,7 +23,7 @@ class team():
 class evento():
     """Classe dos eventos"""
 
-    def __init__(self, id_event: int, sport_id: int, data: int, status: int, _league, _home, _away):
+    def __init__(self, id_event: int, sport_id: int, data: int, status: int, _league: league, _home: team, _away: team):
         self.id_event= id_event
         self.sport_id = sport_id
         self.data = data
@@ -30,18 +31,24 @@ class evento():
         self.league = league(_league['id'], _league['name'], _league['cc'])
         self.home = team(_home['id'], _home['name'], _home['cc'])
         self.away = team(_away['id'], _away['name'], _away['cc'])
+        self.cotacao = None
+
+    def add_odd(self, cot: dict) -> None:
+        self.cotacao = cot
 
 
 class odd():
-    """Cotações dos eventos"""
+    """ Cotações dos eventos. """
 
-    def __init__(self, arg):
-        self.arg = arg
+    def __init__(self, nome_casa: str, mkt_1_1: list, mkt_1_2: list):
+        self.nome_casa = nome_casa
+        self.mkt_1_1 = mkt_1_1
+        self.mkt_1_2 = mkt_1_2
 
 
 
 def json_to_dic(nome_arquivo: str) -> dict:
-    """"Converte os arquivos json para dict"""
+    """" Converte os arquivos json para dict. """
 
     with open(nome_arquivo, 'r') as arquivo:
         data = arquivo.readline()
@@ -50,7 +57,7 @@ def json_to_dic(nome_arquivo: str) -> dict:
 
 
 def take_events(nome_arquivo: str) -> list:
-    """Pega os valores do arquivo JSON e transforma em uma lista de classes"""
+    """ Pega os valores do arquivo JSON e transforma em uma lista de classes. """
 
     data = json_to_dic(nome_arquivo)
     event_list = []
@@ -60,18 +67,67 @@ def take_events(nome_arquivo: str) -> list:
     return event_list
 
 def verify_time() -> int:
-    """Retorna o próximo dia"""
+    """ Retorna o próximo dia. """
 
     return time.strftime("%Y%m%d ", time.localtime(time.time() + 86000))
 
 
 
 def tratar_odds(nome_arquivo: str, source='bet365') -> list:
-    """Trata as cotações de cada envento que recebe"""
+    """ Trata as cotações de cada envento que recebe. """
 
     data = json_to_dic(f'json_files/{source}/{nome_arquivo}')
     response = data['results']['odds']
     print(response)
+
+
+def events_futures_(nome_arquivo: str) -> list: # <-------------------------- v.2.0
+    """ Trata os eventos futuros. """
+
+    data = json_to_dic(nome_arquivo)
+    response = data['results']
+    events = []
+
+    for r in response:
+        _novo_evento = evento(r['id'], r['sport_id'], r['time'], r['time_status'], r['league'], r['home'], r['away'])
+        events.append(_novo_evento)
+    return events
+
+
+
+def summary(nome_arquivo: str) -> list:
+    """ Pega o json com os sumários e transforma em objeto. """
+
+    data = json_to_dic(nome_arquivo)
+    response = data['results']
+    lista_cot = []
+    plataformas_ = plataformas()
+
+    for name, results in response.items():
+        if name.lower() in plataformas_:
+            try:
+
+                _1_1 = [results['odds']['start']['1_1']['home_od'],
+                        results['odds']['start']['1_1']['draw_od'],
+                        results['odds']['start']['1_1']['away_od']]
+                _1_2 = [results['odds']['start']['1_2']['home_od'],
+                        results['odds']['start']['1_2']['draw_od'],
+                        results['odds']['start']['1_2']['away_od']]
+
+                _cotacao = odd(name, _1_1, _1_2)
+                lista_cot.append(_cotacao)
+            except Exception as e:
+                if str(e) == "'draw_od'":
+                    _1_1 = [results['odds']['start']['1_1']['home_od'],
+                            results['odds']['start']['1_1']['draw_od'],
+                            results['odds']['start']['1_1']['away_od']]
+                    _1_2 = [results['odds']['start']['1_2']['home_od'],
+                            results['odds']['start']['1_2']['away_od']]
+                    _cotacao = odd(name, _1_1, _1_2)
+                    lista_cot.append(_cotacao)
+                else:
+                    print('Erro: ', e)
+    return lista_cot
 
 # ------------- ODDS API ----------------------------------
 
@@ -103,7 +159,7 @@ def tratar_odds_2(nome_arquivo: str) -> dict:
 
     return lista_de_eventos
 
-    
+
 
 
 
