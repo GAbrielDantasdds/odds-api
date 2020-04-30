@@ -49,11 +49,12 @@ def get_odds_(sport_: str, region_: str, mkt_: str) -> dict:
 def get_event_summary(event_id: int) -> None:
     """Sumário das cotações de eventos."""
 
-    url = f'https://api.betsapi.com/v2/event/odds/summary?&event_id={event_id}&page=2'
+    url = f'https://api.betsapi.com/v2/event/odds/summary?&event_id={event_id}&page=1'
     re = r.get(url, headers=headers)
     if re.status_code == 200:
         with open(f'data/summary_event_.json', 'w') as arquivo:
             arquivo.write(f'{re.content.decode("UTF-8")}')
+            arquivo.close()
 
 def get_event_odds(event_id: int, source='bet365') -> None:
     """Pega os odds de eventos"""
@@ -67,7 +68,8 @@ def get_event_odds(event_id: int, source='bet365') -> None:
 def events_future(id: int, data: int, source='bet365') -> None:
     """Vê os eventos futuros por esporte"""
 
-    _url = f'https://api.betsapi.com/v2/events/upcoming?sport_id={id}&source={source}&day={data}&page=2'
+    headers['page'] = '2'
+    _url = f'https://api.betsapi.com/v2/events/upcoming?sport_id={id}&source={source}&day={data}&page=1'
     re = r.get(_url, headers=headers)
     if re.status_code == 200:
         with open(f'data/futures_events_.json', 'w') as arquivo:

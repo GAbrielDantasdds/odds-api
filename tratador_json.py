@@ -107,22 +107,27 @@ def summary(nome_arquivo: str) -> list:
         if name.lower() in plataformas_:
             try:
 
-                _1_1 = [results['odds']['start']['1_1']['home_od'],
-                        results['odds']['start']['1_1']['draw_od'],
-                        results['odds']['start']['1_1']['away_od']]
-                _1_2 = [results['odds']['start']['1_2']['home_od'],
-                        results['odds']['start']['1_2']['draw_od'],
-                        results['odds']['start']['1_2']['away_od']]
+                if results['odds']['start']['1_1'] != None:
+                    _1_1 = [results['odds']['start']['1_1']['home_od'],
+                            results['odds']['start']['1_1']['draw_od'],
+                            results['odds']['start']['1_1']['away_od']]
+                else:
+                    _1_1 = None
+                if results['odds']['start']['1_2'] != None:
+                    _1_2 = [results['odds']['start']['1_2']['home_od'],
+                            results['odds']['start']['1_2']['away_od']]
+                else:
+                    _1_2 = None
 
                 _cotacao = odd(name, _1_1, _1_2)
                 lista_cot.append(_cotacao)
             except Exception as e:
                 if str(e) == "'draw_od'":
-                    _1_1 = [results['odds']['start']['1_1']['home_od'],
-                            results['odds']['start']['1_1']['draw_od'],
-                            results['odds']['start']['1_1']['away_od']]
-                    _1_2 = [results['odds']['start']['1_2']['home_od'],
-                            results['odds']['start']['1_2']['away_od']]
+                    # _1_1 = [results['odds']['start']['1_1']['home_od'],
+                    #         results['odds']['start']['1_1']['draw_od'],
+                    #         results['odds']['start']['1_1']['away_od']]
+                    # _1_2 = [results['odds']['start']['1_2']['home_od'],
+                    #         results['odds']['start']['1_2']['away_od']]
                     _cotacao = odd(name, _1_1, _1_2)
                     lista_cot.append(_cotacao)
                 else:
