@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>598</width>
+    <height>448</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Cotações</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">QLabel {
+color: black;
+background-color: rgba(85, 85, 127, 100);
+}
+
+#atualizar {
+color: white;
+	background-color: rgb(0, 170, 0);
+}</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="0">
+     <widget class="QFrame" name="back">
+      <property name="frameShape">
+       <enum>QFrame::StyledPanel</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+      <widget class="QWidget" name="verticalLayoutWidget">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>0</y>
+         <width>551</width>
+         <height>61</height>
+        </rect>
+       </property>
+       <layout class="QVBoxLayout" name="verticalLayout">
+        <item>
+         <widget class="QLabel" name="label">
+          <property name="font">
+           <font>
+            <family>Segoe UI Black</family>
+            <pointsize>14</pointsize>
+            <weight>75</weight>
+            <bold>true</bold>
+           </font>
+          </property>
+          <property name="text">
+           <string>COTAÇÃO 1_1</string>
+          </property>
+          <property name="textFormat">
+           <enum>Qt::LogText</enum>
+          </property>
+          <property name="alignment">
+           <set>Qt::AlignCenter</set>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QFrame" name="frame">
+       <property name="geometry">
+        <rect>
+         <x>10</x>
+         <y>70</y>
+         <width>551</width>
+         <height>331</height>
+        </rect>
+       </property>
+       <property name="frameShape">
+        <enum>QFrame::NoFrame</enum>
+       </property>
+       <property name="frameShadow">
+        <enum>QFrame::Raised</enum>
+       </property>
+       <widget class="QWidget" name="formLayoutWidget">
+        <property name="geometry">
+         <rect>
+          <x>90</x>
+          <y>9</y>
+          <width>181</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <layout class="QFormLayout" name="formLayout">
+         <item row="0" column="0">
+          <widget class="QLabel" name="jogoLabel">
+           <property name="text">
+            <string>Jogo</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="dataLabel">
+           <property name="text">
+            <string>Data</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QLabel" name="label_2">
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QLabel" name="label_3">
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QWidget" name="formLayoutWidget_2">
+        <property name="geometry">
+         <rect>
+          <x>280</x>
+          <y>10</y>
+          <width>181</width>
+          <height>41</height>
+         </rect>
+        </property>
+        <layout class="QFormLayout" name="formLayout_2">
+         <item row="0" column="0">
+          <widget class="QLabel" name="homeLabel">
+           <property name="text">
+            <string>Home</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="awayLabel">
+           <property name="text">
+            <string>Away</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QLabel" name="label_4">
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QLabel" name="label_5">
+           <property name="text">
+            <string/>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+       <widget class="QTableWidget" name="tableWidget">
+        <property name="geometry">
+         <rect>
+          <x>90</x>
+          <y>60</y>
+          <width>371</width>
+          <height>221</height>
+         </rect>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>221</height>
+         </size>
+        </property>
+        <property name="frameShape">
+         <enum>QFrame::Box</enum>
+        </property>
+        <property name="frameShadow">
+         <enum>QFrame::Sunken</enum>
+        </property>
+        <property name="verticalScrollBarPolicy">
+         <enum>Qt::ScrollBarAsNeeded</enum>
+        </property>
+        <property name="horizontalScrollBarPolicy">
+         <enum>Qt::ScrollBarAlwaysOff</enum>
+        </property>
+        <attribute name="horizontalHeaderDefaultSectionSize">
+         <number>107</number>
+        </attribute>
+        <row>
+         <property name="text">
+          <string>Bet365</string>
+         </property>
+        </row>
+        <row>
+         <property name="text">
+          <string>188bet</string>
+         </property>
+        </row>
+        <row>
+         <property name="text">
+          <string>Vbet</string>
+         </property>
+        </row>
+        <row>
+         <property name="text">
+          <string>Betway</string>
+         </property>
+        </row>
+        <row>
+         <property name="text">
+          <string>Pinnacle</string>
+         </property>
+        </row>
+        <row>
+         <property name="text">
+          <string>1xbet</string>
+         </property>
+        </row>
+        <column>
+         <property name="text">
+          <string>Home</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Draw</string>
+         </property>
+        </column>
+        <column>
+         <property name="text">
+          <string>Away</string>
+         </property>
+        </column>
+       </widget>
+       <widget class="QWidget" name="horizontalLayoutWidget">
+        <property name="geometry">
+         <rect>
+          <x>90</x>
+          <y>290</y>
+          <width>371</width>
+          <height>31</height>
+         </rect>
+        </property>
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <item>
+          <spacer name="horizontalSpacer">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QPushButton" name="pushButton_2">
+           <property name="text">
+            <string>Consulta</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QPushButton" name="atualizar">
+           <property name="text">
+            <string>Atualizar</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </widget>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>598</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuMenu">
+    <property name="title">
+     <string>Menu</string>
+    </property>
+    <addaction name="actionOdds"/>
+   </widget>
+   <widget class="QMenu" name="menuDatabase">
+    <property name="title">
+     <string>Database</string>
+    </property>
+   </widget>
+   <widget class="QMenu" name="menuExportar">
+    <property name="title">
+     <string>Exportar</string>
+    </property>
+   </widget>
+   <addaction name="menuMenu"/>
+   <addaction name="menuDatabase"/>
+   <addaction name="menuExportar"/>
+  </widget>
+  <action name="actionOdds">
+   <property name="text">
+    <string>Odds</string>
+   </property>
+  </action>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

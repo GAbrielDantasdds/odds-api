@@ -1,5 +1,5 @@
 import sqlite3 as sq
-from tratador_json import verify_time, tratar_odds_2
+from app.control.tratador_json import verify_time, tratar_odds_2
 
 def criar_(nome: str) -> list:
     """ Cria uma instância da conexão e cursor """
@@ -42,5 +42,3 @@ def banco_eventos_futuros_atualizar(eventos: list) -> None:
     for e in eventos:
         cursor.execute('''INSERT INTO data(event_id, event_name, event_time) values(?,?,?)''', [e.name, f'{e.cotacao.home} x {e.cotacao.away}', e.time])
     conexao.commit()
-
-criar_banco(r'bd/odds/odds_.json')

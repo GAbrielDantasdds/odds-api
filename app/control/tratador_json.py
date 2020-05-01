@@ -1,6 +1,6 @@
 import json
 import calendar, time
-from config import plataformas
+from app.config import plataformas
 
 
 class league():

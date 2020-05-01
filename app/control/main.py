@@ -1,5 +1,5 @@
 import requests as r
-from config import api_key
+from app.config import api_key
 import json
 import os
 
@@ -69,7 +69,7 @@ def events_future(id: int, data: int, source='bet365') -> None:
     """Vê os eventos futuros por esporte"""
 
     headers['page'] = '2'
-    _url = f'https://api.betsapi.com/v2/events/upcoming?sport_id={id}&source={source}&day={data}&page=1'
+    _url = f'https://api.betsapi.com/v2/events/upcoming?sport_id={id}&source={source}&day={data}&page=2'
     re = r.get(_url, headers=headers)
     if re.status_code == 200:
         with open(f'data/futures_events_.json', 'w') as arquivo:
