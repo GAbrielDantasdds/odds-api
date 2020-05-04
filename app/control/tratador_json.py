@@ -40,10 +40,9 @@ class evento():
 class odd():
     """ Cotações dos eventos. """
 
-    def __init__(self, nome_casa: str, mkt_1_1: list, mkt_1_2: list):
+    def __init__(self, nome_casa: str, mkt_1_1: list):
         self.nome_casa = nome_casa
         self.mkt_1_1 = mkt_1_1
-        self.mkt_1_2 = mkt_1_2
 
 
 
@@ -95,43 +94,35 @@ def events_futures_(nome_arquivo: str) -> list: # <-------------------------- v.
 
 
 
-def summary(nome_arquivo: str) -> list:
+def summary(nome_arquivo: str, sport_id) -> list:
     """ Pega o json com os sumários e transforma em objeto. """
 
     data = json_to_dic(nome_arquivo)
     response = data['results']
+    if response == None:
+        return []
     lista_cot = []
     plataformas_ = plataformas()
 
     for name, results in response.items():
         if name.lower() in plataformas_:
-            try:
-
-                if results['odds']['start']['1_1'] != None:
-                    _1_1 = [results['odds']['start']['1_1']['home_od'],
-                            results['odds']['start']['1_1']['draw_od'],
-                            results['odds']['start']['1_1']['away_od']]
+            if sport_id == 1:
+                if results['odds']['start'][f'{sport_id}_1'] != None:
+                    _1_1 = [results['odds']['start'][f'{sport_id}_1']['home_od'],
+                            results['odds']['start'][f'{sport_id}_1']['draw_od'],
+                            results['odds']['start'][f'{sport_id}_1']['away_od']]
                 else:
                     _1_1 = None
-                if results['odds']['start']['1_2'] != None:
-                    _1_2 = [results['odds']['start']['1_2']['home_od'],
-                            results['odds']['start']['1_2']['away_od']]
+            else:
+                if results['odds']['start'][f'{sport_id}_1'] != None:
+                    _1_1 = [results['odds']['start'][f'{sport_id}_1']['home_od'],
+                            results['odds']['start'][f'{sport_id}_1']['away_od'],]
                 else:
-                    _1_2 = None
+                    _1_1 = None
 
-                _cotacao = odd(name, _1_1, _1_2)
-                lista_cot.append(_cotacao)
-            except Exception as e:
-                if str(e) == "'draw_od'":
-                    # _1_1 = [results['odds']['start']['1_1']['home_od'],
-                    #         results['odds']['start']['1_1']['draw_od'],
-                    #         results['odds']['start']['1_1']['away_od']]
-                    # _1_2 = [results['odds']['start']['1_2']['home_od'],
-                    #         results['odds']['start']['1_2']['away_od']]
-                    _cotacao = odd(name, _1_1, _1_2)
-                    lista_cot.append(_cotacao)
-                else:
-                    print('Erro: ', e)
+            _cotacao = odd(name, _1_1)
+            lista_cot.append(_cotacao)
+
     return lista_cot
 
 # ------------- ODDS API ----------------------------------
