@@ -28,17 +28,16 @@ def inserir_dados(nome_banco: str, data: list, tp: bool) -> None:
 
     conexao.commit()
 
-def banco_eventos_futuros() -> None:
+def banco_eventos_futuros(sport) -> None:
     """ Banco de dados que vai receber os eventos que ocorrerão em 24hrs. """
 
-    cursor, conexao = criar_(f'eventos_dia_{verify_time()}.db')
+    cursor, conexao = criar_(f'app/models/{sport}_em_analise{verify_time()}.db')
     cursor.execute('''CREATE TABLE IF NOT EXISTS data(event_id, event_name, event_time)''')
 
-def banco_eventos_futuros_atualizar(eventos: list) -> None:
+def banco_eventos_futuros_atualizar(eventos: list, sport: str) -> None:
     """ Insere dados de eventos futuros. """
 
-    banco_eventos_futuros()
-    cursor, conexao = criar_(f'eventos_dia_{verify_time()}.db')
+    cursor, conexao = criar_(f'app/models/{sport}em_analise{verify_time()}.db')
     for e in eventos:
-        cursor.execute('''INSERT INTO data(event_id, event_name, event_time) values(?,?,?)''', [e.name, f'{e.cotacao.home} x {e.cotacao.away}', e.time])
+        cursor.execute('''INSERT INTO data(event_id, event_name, event_time) values(?,?,?)''', [e.id_event, f'{e.home.name} x {e.away.name}', e.data])
     conexao.commit()

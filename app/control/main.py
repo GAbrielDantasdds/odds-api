@@ -75,6 +75,7 @@ def events_future(id: int, data: int,  page: int, source='bet365') -> bool:
 
     _url = f'https://api.betsapi.com/v2/events/upcoming?sport_id={id}&source={source}&day={data}&page={page}'
     re = r.get(_url, headers=headers)
+
     if re.status_code == 200:
         if json.loads(re.content.decode("UTF-8"))['results'] == []:
             return  False
