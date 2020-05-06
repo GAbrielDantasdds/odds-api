@@ -68,7 +68,7 @@ def take_events(nome_arquivo: str) -> list:
 def verify_time() -> int:
     """ Retorna o próximo dia. """
 
-    return time.strftime("%Y%m%d ", time.localtime(time.time() + 86000))
+    return time.strftime("%Y%m%d", time.localtime(time.time() + 86000))
 
 
 
@@ -116,6 +116,7 @@ def summary(nome_arquivo: str, sport_id) -> list:
             else:
                 if results['odds']['start'][f'{sport_id}_1'] != None:
                     _1_1 = [results['odds']['start'][f'{sport_id}_1']['home_od'],
+                            None,
                             results['odds']['start'][f'{sport_id}_1']['away_od'],]
                 else:
                     _1_1 = None
