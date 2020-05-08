@@ -1,4 +1,5 @@
 from app.control.banco_de_dados_ import criar_
+from app.control.tratador_json import verify_time
 import sqlite3 as sq
 
 
@@ -10,7 +11,21 @@ def get_events_id_from_db(sport: str, time: str) -> list:
     lista_de_eventos_by_id = cursor_eventos.fetchall()
     return lista_de_eventos_by_id
 
-    # cursor_odds = criar_(r'bd/odds/odds_.json.bd')[0]
-    # for ide in lista_de_eventos_by_id:
-    #     cursor_odds.execute('''SELECT NAME_BET, HOME_OD, DRAW_OD, AWAY_OD FROM data WHERE ID == ?''', [ide[0]])
-    #     print(cursor_odds.fetchall())
+
+def take_league(sport: str) -> list:
+    """ Retorna todas as ligas de determinado esporte. """
+
+    cursor = criar_(f'app/models/bd/events/{sport}_em_analise{verify_time()}.db')[0] #verify_time()
+    cursor.execute('''SELECT event_league FROM data group by event_league''')
+    _list = cursor.fetchall()
+    _list = [x[0] for x in _list]
+    return _list
+
+def take_events_name(event_league: str, sport: str) -> list:
+    """ Retorna os jogos pelos eventos. """
+
+    cursor = criar_(f'app/models/bd/events/{sport}_em_analise{verify_time()}.db')[0]
+    cursor.execute('''SELECT event_name FROM data WHERE event_league == ?''', [event_league])
+
+    lista_de_eventos_by_name = cursor.fetchall()
+    return lista_de_eventos_by_name

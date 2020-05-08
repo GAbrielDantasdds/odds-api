@@ -1,9 +1,10 @@
 from app.control.control import refresh, odds_to_bd
 from app.control.banco_de_dados_ import banco_eventos_futuros
 from app.control.tratador_json import verify_time
-from time import sleep
 from app.config import sports, verify
+from app.templates.call import iniciar
 
+from time import sleep
 
 def start() -> None:
     """ Inicia o loop para pegar os eventos e suas casas. """
@@ -17,8 +18,9 @@ def start() -> None:
     else:
         for sport in sports():
             banco_eventos_futuros(sport)
-        start()
+            break
+        #start()
 
 
-start()
-print('Done!')
+# start()
+iniciar()

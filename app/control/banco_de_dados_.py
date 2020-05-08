@@ -36,7 +36,7 @@ def banco_eventos_futuros(sport) -> None:
     """ Banco de dados que vai receber os eventos que ocorrerão em 24hrs. """
 
     cursor, conexao = criar_(f'app/models/bd/events/{sport}_em_analise{verify_time()}.db')
-    cursor.execute('''CREATE TABLE IF NOT EXISTS data(event_id, event_name, event_time)''')
+    cursor.execute('''CREATE TABLE IF NOT EXISTS data(event_id, event_name, event_league, event_time)''')
 
     cursor, conexao = criar_(f'app/models/bd/odds/{sport}_odds_{verify_time()}.db')
     cursor.execute('''CREATE TABLE IF NOT EXISTS data(event_id, bet_name, home_od, draw_od, away_od)''')
@@ -60,7 +60,7 @@ def banco_eventos_futuros_atualizar(eventos: list, sport: str) -> None:
     insert_id(eventos, sport)
     cursor, conexao = criar_(f'app/models/bd/events/{sport}_em_analise{verify_time()}.db')
     for e in eventos:
-        cursor.execute('''INSERT INTO data(event_id, event_name, event_time) values(?,?,?)''', [e.id_event, f'{e.home.name} x {e.away.name}', e.data])
+        cursor.execute('''INSERT INTO data(event_id, event_name, event_league, event_time) values(?,?,?,?)''', [e.id_event, f'{e.home.name} x {e.away.name}', e.league.name, e.data])
     conexao.commit()
 
 
