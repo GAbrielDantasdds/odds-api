@@ -201,4 +201,3 @@ class Ui_MainWindow(object):
         self.menuDatabase.setTitle(_translate("MainWindow", "Database", None))
         self.menuExportar.setTitle(_translate("MainWindow", "Exportar", None))
         self.actionOdds.setText(_translate("MainWindow", "Odds", None))
-

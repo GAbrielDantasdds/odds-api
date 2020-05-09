@@ -35,9 +35,11 @@ def inserir_dados(nome_banco: str, data: list, tp: bool) -> None:
 def banco_eventos_futuros(sport) -> None:
     """ Banco de dados que vai receber os eventos que ocorrerão em 24hrs. """
 
+    #banco para eventos
     cursor, conexao = criar_(f'app/models/bd/events/{sport}_em_analise{verify_time()}.db')
     cursor.execute('''CREATE TABLE IF NOT EXISTS data(event_id, event_name, event_league, event_time)''')
 
+    #banco para odds
     cursor, conexao = criar_(f'app/models/bd/odds/{sport}_odds_{verify_time()}.db')
     cursor.execute('''CREATE TABLE IF NOT EXISTS data(event_id, bet_name, home_od, draw_od, away_od)''')
 

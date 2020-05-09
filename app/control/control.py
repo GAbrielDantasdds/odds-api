@@ -12,7 +12,6 @@ def odds_to_bd(sport: str) -> None:
     sport_id = app.config.sports()
 
     for id in lista_de_id:
-        print(id[0])
         get_event_summary(id[0])
         lista_cotacoes = summary(r'app/data/summary_event_.json', sport_id[sport])
         banco_odds_atualizar(sport, lista_cotacoes, id[0])

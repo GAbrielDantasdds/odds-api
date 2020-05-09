@@ -5,7 +5,8 @@ import sys
 
 from app.templates.interface import *
 from app.control.tratar_banco import take_league, take_events_name
-from app.config import sports
+from app.control.tratar_banco import take_odds
+from app.config import sports, plataformas_dic
 
 
 
@@ -18,6 +19,7 @@ class tela(QtGui.QMainWindow):
         self.sport_name  = None
         self._ligas      = None
         self.events_name = None
+        self.new_dic     = {}
 
 
         def get_league() -> str:
@@ -39,19 +41,34 @@ class tela(QtGui.QMainWindow):
             else:
                 return False
 
+        def insert_table(id) -> None:
+            _lista = take_odds(id, self.sport_name)
+            self.ui.tableWidget.clearContents()
+            dic = plataformas_dic()
+            print(_lista)
+
+            for e in _lista:
+                self.ui.tableWidget.setItem(dic[e[0]],0, QTableWidgetItem(f'{e[1]}'))
+                self.ui.tableWidget.setItem(dic[e[0]],1, QTableWidgetItem(f'{e[2]}'))
+                self.ui.tableWidget.setItem(dic[e[0]],2, QTableWidgetItem(f'{e[3]}'))
+
+
 
         def validate() -> list:
             """ Verifica se todos os campos foram preenchidos. """
 
             _var = [get_league(), get_event()]
             if all(_var):
-                print(_var)
+                insert_table(self.new_dic[_var[1]])
             else:
                 print('Preencha todos os campos!')
 
 
         def select_sport() -> None:
             """ Mostra o esporte escolhido. """
+
+            self.ui.comboBox_3.clear()
+            self.ui.comboBox_2.clear()
 
             self.sport_name = str(self.ui.comboBox.currentText())
             sport_id = self.sports[str(self.ui.comboBox.currentText())]
@@ -64,16 +81,14 @@ class tela(QtGui.QMainWindow):
         def select_league() -> None:
             """ Seleciona os nomes de eventos. """
 
-
             if self.sport_name != None:
                 self.events_name = take_events_name(self.ui.comboBox_2.currentText(), self.sport_name)
-                self.event_name = [x[0] for x in self.events_name]
+                self.ui.comboBox_3.clear()
+                self.new_dic.clear()
 
-
-
-            if self.events_name != None:
-                for evento in self.events_name:
-                    self.ui.comboBox_3.addItem(evento)
+                for e in self.events_name:
+                    self.new_dic[e[0]] = e[1]
+                    self.ui.comboBox_3.addItem(e[0])
 
 
 
@@ -84,6 +99,7 @@ class tela(QtGui.QMainWindow):
         QtCore.QObject.connect(self.ui.pushButton, QtCore.SIGNAL('clicked()'), validate)
         self.ui.comboBox.currentIndexChanged.connect(select_sport)
         self.ui.comboBox_2.currentIndexChanged.connect(select_league)
+
 
 
 def iniciar():

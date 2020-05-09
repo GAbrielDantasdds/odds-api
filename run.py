@@ -3,6 +3,7 @@ from app.control.banco_de_dados_ import banco_eventos_futuros
 from app.control.tratador_json import verify_time
 from app.config import sports, verify
 from app.templates.call import iniciar
+from app.templates.table import chamar_tabela
 
 from time import sleep
 
@@ -22,5 +23,6 @@ def start() -> None:
         #start()
 
 
+# iniciar()
 # start()
-iniciar()
+chamar_tabela()
