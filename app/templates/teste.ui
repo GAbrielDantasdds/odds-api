@@ -65,8 +65,17 @@ color: rgb(255, 255, 200)
        <height>351</height>
       </rect>
      </property>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Fixed" vsizetype="Expanding">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
      <property name="cursor" stdset="0">
       <cursorShape>CrossCursor</cursorShape>
+     </property>
+     <property name="toolTip">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
      <property name="frameShape">
       <enum>QFrame::NoFrame</enum>
@@ -102,7 +111,7 @@ color: rgb(255, 255, 200)
       <bool>true</bool>
      </property>
      <property name="columnCount">
-      <number>6</number>
+      <number>7</number>
      </property>
      <attribute name="horizontalHeaderVisible">
       <bool>true</bool>
@@ -143,6 +152,14 @@ color: rgb(255, 255, 200)
      <attribute name="verticalHeaderStretchLastSection">
       <bool>false</bool>
      </attribute>
+     <column>
+      <property name="text">
+       <string>Data/Hora</string>
+      </property>
+      <property name="toolTip">
+       <string>Mostra a data e hora.</string>
+      </property>
+     </column>
      <column>
       <property name="text">
        <string>Bet365</string>
@@ -206,7 +223,7 @@ color: rgb(255, 255, 200)
        </item>
        <item>
         <property name="text">
-         <string>table_tennis</string>
+         <string>table_tenis</string>
         </property>
        </item>
        <item>
@@ -272,6 +289,12 @@ color: rgb(255, 255, 200)
       <width>91</width>
       <height>23</height>
      </rect>
+    </property>
+    <property name="toolTip">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;AAAAAA&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+    <property name="whatsThis">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Botão de atualização&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
     <property name="text">
      <string>Atualizar tabela</string>

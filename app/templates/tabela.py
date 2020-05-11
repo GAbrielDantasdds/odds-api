@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'teste.ui'
 #
-# Created: Sat May 09 01:18:03 2020
+# Created: Mon May 11 17:48:37 2020
 #      by: PyQt4 UI code generator 4.11.3
 #
 # WARNING! All changes made in this file will be lost!
@@ -52,6 +52,11 @@ class Ui_MainWindow(object):
         self.groupBox.setObjectName(_fromUtf8("groupBox"))
         self.tableWidget = QtGui.QTableWidget(self.groupBox)
         self.tableWidget.setGeometry(QtCore.QRect(10, 20, 711, 351))
+        sizePolicy = QtGui.QSizePolicy(QtGui.QSizePolicy.Fixed, QtGui.QSizePolicy.Expanding)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.tableWidget.sizePolicy().hasHeightForWidth())
+        self.tableWidget.setSizePolicy(sizePolicy)
         self.tableWidget.viewport().setProperty("cursor", QtGui.QCursor(QtCore.Qt.CrossCursor))
         self.tableWidget.setFrameShape(QtGui.QFrame.NoFrame)
         self.tableWidget.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAsNeeded)
@@ -63,7 +68,7 @@ class Ui_MainWindow(object):
         self.tableWidget.setTextElideMode(QtCore.Qt.ElideNone)
         self.tableWidget.setShowGrid(True)
         self.tableWidget.setWordWrap(True)
-        self.tableWidget.setColumnCount(6)
+        self.tableWidget.setColumnCount(7)
         self.tableWidget.setObjectName(_fromUtf8("tableWidget"))
         self.tableWidget.setRowCount(0)
         item = QtGui.QTableWidgetItem()
@@ -78,6 +83,8 @@ class Ui_MainWindow(object):
         self.tableWidget.setHorizontalHeaderItem(4, item)
         item = QtGui.QTableWidgetItem()
         self.tableWidget.setHorizontalHeaderItem(5, item)
+        item = QtGui.QTableWidgetItem()
+        self.tableWidget.setHorizontalHeaderItem(6, item)
         self.tableWidget.horizontalHeader().setVisible(True)
         self.tableWidget.horizontalHeader().setCascadingSectionResizes(True)
         self.tableWidget.horizontalHeader().setDefaultSectionSize(100)
@@ -135,27 +142,33 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(_translate("MainWindow", "Tabela de Cotações", None))
         self.groupBox.setTitle(_translate("MainWindow", "TABELA", None))
+        self.tableWidget.setToolTip(_translate("MainWindow", "<html><head/><body><p><br/></p></body></html>", None))
         self.tableWidget.setSortingEnabled(True)
         item = self.tableWidget.horizontalHeaderItem(0)
-        item.setText(_translate("MainWindow", "Bet365", None))
+        item.setText(_translate("MainWindow", "Data/Hora", None))
+        item.setToolTip(_translate("MainWindow", "Mostra a data e hora.", None))
         item = self.tableWidget.horizontalHeaderItem(1)
-        item.setText(_translate("MainWindow", "188bet", None))
+        item.setText(_translate("MainWindow", "Bet365", None))
         item = self.tableWidget.horizontalHeaderItem(2)
-        item.setText(_translate("MainWindow", "Vbet", None))
+        item.setText(_translate("MainWindow", "188bet", None))
         item = self.tableWidget.horizontalHeaderItem(3)
-        item.setText(_translate("MainWindow", "Betway", None))
+        item.setText(_translate("MainWindow", "Vbet", None))
         item = self.tableWidget.horizontalHeaderItem(4)
-        item.setText(_translate("MainWindow", "Pinnacle", None))
+        item.setText(_translate("MainWindow", "Betway", None))
         item = self.tableWidget.horizontalHeaderItem(5)
+        item.setText(_translate("MainWindow", "Pinnacle", None))
+        item = self.tableWidget.horizontalHeaderItem(6)
         item.setText(_translate("MainWindow", "1xbet", None))
         self.selecioneOEsporteLabel.setText(_translate("MainWindow", "Selecione o esporte:", None))
         self.comboBox.setItemText(0, _translate("MainWindow", "Esportes", None))
         self.comboBox.setItemText(1, _translate("MainWindow", "soccer", None))
-        self.comboBox.setItemText(2, _translate("MainWindow", "table_tennis", None))
+        self.comboBox.setItemText(2, _translate("MainWindow", "table_tenis", None))
         self.comboBox.setItemText(3, _translate("MainWindow", "tennis", None))
         self.comboBox.setItemText(4, _translate("MainWindow", "volleyball", None))
         self.selecionaALigaLabel.setText(_translate("MainWindow", "Seleciona a liga:", None))
         self.comboBox_2.setItemText(0, _translate("MainWindow", "Ligas", None))
         self.busa_dados.setText(_translate("MainWindow", "Buscar dados", None))
+        self.atualizar_tabela.setToolTip(_translate("MainWindow", "<html><head/><body><p>AAAAAA</p></body></html>", None))
+        self.atualizar_tabela.setWhatsThis(_translate("MainWindow", "<html><head/><body><p>Botão de atualização</p></body></html>", None))
         self.atualizar_tabela.setText(_translate("MainWindow", "Atualizar tabela", None))
 

@@ -8,6 +8,8 @@ from app.config import sports, plataformas_dic
 
 from app.templates.tabela import *
 
+import time
+
 
 class _main(QtGui.QMainWindow):
     def __init__(self, parent=None):
@@ -17,21 +19,31 @@ class _main(QtGui.QMainWindow):
         self.sports = sports()
         self._eventos = None
 
-        # print(dir(self.ui.tableWidget))
+
         def mini_tabela(home_od: str, draw_od: str, away_od: str) -> QTableWidgetItem:
             """ Retorna uma mini tabela. """
 
             tabela = QTableWidget()
             tabela.setRowCount(1)
-            tabela.setColumnCount(3)
+            if draw_od == None:
+                tabela.setColumnCount(2)
+            else:
+                tabela.setColumnCount(3)
             tabela.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
             tabela.horizontalHeader().setVisible(False)
             tabela.verticalHeader().setVisible(False)
-            tabela.horizontalHeader().setDefaultSectionSize(33)
+            if draw_od == None:
+                tabela.horizontalHeader().setDefaultSectionSize(50)
+            else:
+                tabela.horizontalHeader().setDefaultSectionSize(35)
+
             tabela.setSelectionMode(QtGui.QAbstractItemView.NoSelection)
             tabela.setItem(0, 0,  QTableWidgetItem(f"{home_od}"))
-            tabela.setItem(0, 1,  QTableWidgetItem(f"{draw_od}"))
-            tabela.setItem(0, 2,  QTableWidgetItem(f"{away_od}"))
+            if draw_od != None:
+                tabela.setItem(0, 1,  QTableWidgetItem(f"{draw_od}"))
+                tabela.setItem(0, 2,  QTableWidgetItem(f"{away_od}"))
+            else:
+                tabela.setItem(0, 1,  QTableWidgetItem(f"{away_od}"))
             return tabela
 
         def preencher_tabela() -> None:
@@ -58,16 +70,32 @@ class _main(QtGui.QMainWindow):
         def insert_tabela(dic: dict) -> None:
             """ Insere informações apartir de um dicionário. """
 
+            def get_data(time_now: str) -> str:
+                """ Converte o tempo. """
+
+                return time.strftime("%Y-%m-%d %H:%M", time.localtime(int(time_now)))
+
+
             self.ui.tableWidget.setRowCount(len(dic))
             plat = plataformas_dic()
             row = 0
             for evento in dic:
+                self.ui.tableWidget.setItem(row, 0, QTableWidgetItem(f'{get_data(dic[evento][1])}'))
                 self.ui.tableWidget.setVerticalHeaderItem(row, QTableWidgetItem(f'{evento}'))
-                for i in range(len(dic[evento])):
-                    print(dic[evento][i][0])
-                    self.ui.tableWidget.setCellWidget(row, plat[dic[evento][i][0]], mini_tabela(dic[evento][i][1], dic[evento][i][2], dic[evento][i][3]))
+                for i in range(len(dic[evento][0])):
+                    self.ui.tableWidget.setCellWidget(row, plat[dic[evento][0][i][0]]+1, mini_tabela(dic[evento][0][i][1], dic[evento][0][i][2], dic[evento][0][i][3]))
                 row += 1
 
+        def verifica_odss(lista_de_odds: list) -> bool:
+            """ verifica se a lista de odds é valida. """
+
+            aux = []
+            for odd in lista_de_odds:
+                aux.append(any(odd))
+            if False in aux:
+                return False
+            else:
+                return True
 
         def buscar_dados() -> None:
             """ Busca as odds conforme os dados. """
@@ -75,7 +103,7 @@ class _main(QtGui.QMainWindow):
             _league = str(self.ui.comboBox_2.currentText())
 
 
-            if _sport in self.sports.keys():
+            if _sport in sports().keys():
                 if _league != 'Ligas':
                     self._eventos = take_events_name(_league, _sport)
 
@@ -83,7 +111,12 @@ class _main(QtGui.QMainWindow):
                 _dic = {}
                 for evento in self._eventos:
                     _odds = take_odds(evento[1], _sport)
-                    _dic[evento[0]] = _odds
+                    if verifica_odss(_odds):
+                        _evento = evento[0].split('versus')
+                        _new_name = _evento[0][:3] + ' vs ' + _evento[1][:3]
+                        _dic[_new_name] = _odds, evento[-1]
+                    else:
+                        pass
 
             insert_tabela(_dic)
 

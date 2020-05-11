@@ -68,7 +68,7 @@ def take_events(nome_arquivo: str) -> list:
 def verify_time() -> int:
     """ Retorna o próximo dia. """
 
-    return time.strftime("%Y%m%d", time.localtime(time.time() + 86000))
+    return time.strftime("%Y%m%d", time.localtime(time.time() + 43000))
 
 
 

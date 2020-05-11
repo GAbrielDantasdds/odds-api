@@ -92,10 +92,6 @@ class tela(QtGui.QMainWindow):
 
 
 
-
-
-
-
         QtCore.QObject.connect(self.ui.pushButton, QtCore.SIGNAL('clicked()'), validate)
         self.ui.comboBox.currentIndexChanged.connect(select_sport)
         self.ui.comboBox_2.currentIndexChanged.connect(select_league)

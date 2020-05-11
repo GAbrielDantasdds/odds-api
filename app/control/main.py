@@ -5,8 +5,8 @@ import os
 import time
 
 
-token_antigo = '45897-Mw1oq96CdzOmzh'
-token = '46686-aMprSfbKrPfl2i'
+
+token = 'your-token'
 
 headers = {'Content-Type': 'application/json',
 'X-API-TOKEN': '{0}'.format(token)}
@@ -53,14 +53,14 @@ def get_odds_(sport_: str, region_: str, mkt_: str) -> dict:
 def get_event_summary(event_id: int) -> None:
     """ Sumário das cotações de eventos. """
 
-    url = f'https://api.betsapi.com/v2/event/odds/summary?&event_id={event_id}&page=1'
+    url = f'https://api.betsapi.com/v2/event/odds/summary?&event_id={event_id}&page=2'
     re = r.get(url, headers=headers)
     if re.status_code == 200:
         with open(f'app/data/summary_event_.json', 'w') as arquivo:
             arquivo.write(f'{re.content.decode("UTF-8")}')
             arquivo.close()
 
-def get_event_odds(event_id: int, source='bet365') -> None:
+def get_event_odds(event_id: int, source='188bet') -> None:
     """Pega os odds de eventos"""
 
     url = f'https://api.betsapi.com/v2/event/odds?&event_id={event_id}&source={source}'
@@ -69,7 +69,7 @@ def get_event_odds(event_id: int, source='bet365') -> None:
         with open(f'json_files/{source}/{source}_odds_events_.json', 'w') as arquivo:
             arquivo.write(f'{re.content.decode("UTF-8")}')
 
-def events_future(id: int, data: int,  page: int, source='bet365') -> bool:
+def events_future(id: int, data: int,  page: int, source='1xbet') -> bool:
     """Vê os eventos futuros por esporte"""
 
 

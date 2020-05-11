@@ -62,7 +62,7 @@ def banco_eventos_futuros_atualizar(eventos: list, sport: str) -> None:
     insert_id(eventos, sport)
     cursor, conexao = criar_(f'app/models/bd/events/{sport}_em_analise{verify_time()}.db')
     for e in eventos:
-        cursor.execute('''INSERT INTO data(event_id, event_name, event_league, event_time) values(?,?,?,?)''', [e.id_event, f'{e.home.name} x {e.away.name}', e.league.name, e.data])
+        cursor.execute('''INSERT INTO data(event_id, event_name, event_league, event_time) values(?,?,?,?)''', [e.id_event, f'{e.home.name} versus {e.away.name}', e.league.name, e.data])
     conexao.commit()
 
 
